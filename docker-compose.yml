@@ -1,0 +1,37 @@
+services:
+  # --- DỊCH VỤ DJANGO WEB (Dành cho Homepage) ---
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    # Chạy Django server trên cổng 8000
+    command: python manage.py runserver 0.0.0.0:8000
+
+    volumes:
+      # Mount code để hỗ trợ Hot-reload khi bạn sửa giao diện/logic
+      - ./backend:/app/backend
+      # Giữ lại dữ liệu SQLite khi xóa container
+      # File db.sqlite3 ở máy thật sẽ đồng bộ với file trong container
+      - ./backend/db.sqlite3:/app/backend/db.sqlite3
+      # Ngăn chặn node_modules máy thật đè lên container
+      - /app/node_modules
+    
+    ports:
+      # Nếu bạn muốn chạy Homepage ở port 8001 trên máy Mac: sửa thành "8001:8000"
+      - "8004:8000"
+
+    environment:
+      - DEBUG=${DEBUG:-True}
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-*}
+      # Vì dùng SQLite nên ta báo cho Django biết không cần dùng Postgres
+      - DATABASE=sqlite
+    
+    env_file:
+      - .env
+    
+    tty: true
+    stdin_open: true
+
+# Không cần khai báo volumes postgres_data nữa

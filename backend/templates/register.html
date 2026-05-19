@@ -1,0 +1,421 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}
+    {% trans "応募・登録" %} | JOB CREATOR
+{% endblock title %}
+{% block content %}
+    <!-- Hero -->
+    <section class="pt-24 md:pt-30 pb-6 md:pb-10 overflow-hidden border-b border-border">
+        <div class="content__pad-x text-center" data-aos="flip-left">
+            <h1 class="hero-title">{% trans "応募・登録" %}</h1>
+        </div>
+    </section>
+    <!-- Main Content -->
+    <section class="container max-w-4xl mx-auto content__pad-x content__pad-y overflow-hidden">
+        <!-- Instruction / Lead -->
+        <div class="mb-8 text-center" data-aos="fade-up">
+            <p class="text-base-content/80">
+                {% trans "以下のフォームに必要な情報を入力してください。必須項目（" %}<span class="badge badge-error badge-sm text-white mx-1">必須</span>{% trans "）は必ずご記入ください。" %}
+            </p>
+        </div>
+
+        <form class="space-y-10" x-data="{ isForeigner: false }" data-aos="fade-up" data-aos-delay="100">
+            
+            <!-- ① 基本情報 -->
+            <div class="card bg-base-100 shadow-md border border-base-200">
+                <div class="card-body p-6 md:p-8">
+                    <h3 class="text-xl md:text-2xl font-bold border-l-4 border-primary pl-3 mb-6">① 基本情報 <span class="text-sm font-normal text-base-content/60 ml-2">共通項目</span></h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- 氏名 -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">氏名 <span class="badge badge-error badge-sm text-white ml-1">必須</span></span></label>
+                            <input type="text" class="input input-bordered w-full" placeholder="例: 山田 太郎" />
+                        </div>
+                        <!-- フリガナ -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">フリガナ <span class="badge badge-error badge-sm text-white ml-1">必須</span></span></label>
+                            <input type="text" class="input input-bordered w-full" placeholder="例: ヤマダ タロウ" />
+                        </div>
+                        
+                        <!-- 性別 -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">性別</span></label>
+                            <div class="flex gap-4 mt-2">
+                                <label class="cursor-pointer flex items-center gap-2">
+                                    <input type="radio" name="gender" class="radio radio-primary radio-sm" /> <span>男性</span>
+                                </label>
+                                <label class="cursor-pointer flex items-center gap-2">
+                                    <input type="radio" name="gender" class="radio radio-primary radio-sm" /> <span>女性</span>
+                                </label>
+                                <label class="cursor-pointer flex items-center gap-2">
+                                    <input type="radio" name="gender" class="radio radio-primary radio-sm" /> <span>その他</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- 生年月日 -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">生年月日 <span class="badge badge-error badge-sm text-white ml-1">必須</span></span></label>
+                            <input type="date" class="input input-bordered w-full" />
+                        </div>
+
+                        <!-- 電話番号 -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">電話番号</span></label>
+                            <input type="tel" class="input input-bordered w-full" placeholder="例: 090-1234-5678" />
+                        </div>
+
+                        <!-- メールアドレス -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">メールアドレス <span class="badge badge-error badge-sm text-white ml-1">必須</span></span></label>
+                            <input type="email" class="input input-bordered w-full" placeholder="例: example@mail.com" />
+                        </div>
+
+                        <!-- 現住所 -->
+                        <div class="form-control w-full md:col-span-2">
+                            <label class="label"><span class="label-text font-semibold">現住所 <span class="badge badge-error badge-sm text-white ml-1">必須</span></span></label>
+                            <input type="text" class="input input-bordered w-full" placeholder="例: 東京都新宿区..." />
+                        </div>
+
+                        <!-- 国籍 -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">国籍 <span class="badge badge-error badge-sm text-white ml-1">必須</span></span></label>
+                            <select class="select select-bordered w-full">
+                                <option value="" disabled selected>選択してください</option>
+                                <option value="JP">日本</option>
+                                <option value="VN">ベトナム</option>
+                                <option value="CN">中国</option>
+                                <option value="OTHER">その他</option>
+                            </select>
+                        </div>
+
+                        <!-- 居住国 -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">居住国</span></label>
+                            <select class="select select-bordered w-full">
+                                <option value="" disabled selected>選択してください</option>
+                                <option value="JP">日本</option>
+                                <option value="VN">ベトナム</option>
+                                <option value="OTHER">その他</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ② 就業関連 -->
+            <div class="card bg-base-100 shadow-md border border-base-200">
+                <div class="card-body p-6 md:p-8">
+                    <h3 class="text-xl md:text-2xl font-bold border-l-4 border-primary pl-3 mb-6">② 就業関連</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- 希望職種 -->
+                        <div class="form-control w-full md:col-span-2">
+                            <label class="label"><span class="label-text font-semibold">希望職種</span></label>
+                            <div class="flex flex-wrap gap-4 mt-2">
+                                <label class="cursor-pointer flex items-center gap-2"><input type="checkbox" class="checkbox checkbox-primary checkbox-sm" /> <span>ITエンジニア</span></label>
+                                <label class="cursor-pointer flex items-center gap-2"><input type="checkbox" class="checkbox checkbox-primary checkbox-sm" /> <span>建設・土木</span></label>
+                                <label class="cursor-pointer flex items-center gap-2"><input type="checkbox" class="checkbox checkbox-primary checkbox-sm" /> <span>製造・工場</span></label>
+                                <label class="cursor-pointer flex items-center gap-2"><input type="checkbox" class="checkbox checkbox-primary checkbox-sm" /> <span>ホテル・サービス</span></label>
+                                <label class="cursor-pointer flex items-center gap-2"><input type="checkbox" class="checkbox checkbox-primary checkbox-sm" /> <span>その他</span></label>
+                            </div>
+                        </div>
+
+                        <!-- 希望勤務地 -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">希望勤務地</span></label>
+                            <select class="select select-bordered w-full">
+                                <option value="" disabled selected>選択してください</option>
+                                <option value="1">こだわらない</option>
+                                <option value="2">関東エリア</option>
+                                <option value="3">関西エリア</option>
+                                <option value="4">東海エリア</option>
+                            </select>
+                        </div>
+
+                        <!-- 希望給与 -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">希望給与</span></label>
+                            <select class="select select-bordered w-full">
+                                <option value="" disabled selected>選択してください</option>
+                                <option value="1">こだわらない</option>
+                                <option value="2">月給20万円以上</option>
+                                <option value="3">月給25万円以上</option>
+                                <option value="4">月給30万円以上</option>
+                            </select>
+                        </div>
+
+                        <!-- 就業可能時期 -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">就業可能時期</span></label>
+                            <select class="select select-bordered w-full">
+                                <option value="" disabled selected>選択してください</option>
+                                <option value="1">すぐに可能</option>
+                                <option value="2">1ヶ月以内</option>
+                                <option value="3">3ヶ月以内</option>
+                                <option value="4">相談して決めたい</option>
+                            </select>
+                        </div>
+
+                        <!-- 雇用形態希望 -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">雇用形態希望</span></label>
+                            <div class="flex flex-wrap gap-4 mt-2">
+                                <label class="cursor-pointer flex items-center gap-2"><input type="checkbox" class="checkbox checkbox-primary checkbox-sm" /> <span>正社員</span></label>
+                                <label class="cursor-pointer flex items-center gap-2"><input type="checkbox" class="checkbox checkbox-primary checkbox-sm" /> <span>契約社員</span></label>
+                                <label class="cursor-pointer flex items-center gap-2"><input type="checkbox" class="checkbox checkbox-primary checkbox-sm" /> <span>派遣社員</span></label>
+                                <label class="cursor-pointer flex items-center gap-2"><input type="checkbox" class="checkbox checkbox-primary checkbox-sm" /> <span>アルバイト</span></label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- ③ 学歴・職歴 -->
+            <div class="card bg-base-100 shadow-md border border-base-200">
+                <div class="card-body p-6 md:p-8">
+                    <h3 class="text-xl md:text-2xl font-bold border-l-4 border-primary pl-3 mb-6">③ 学歴・職歴</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- 最終学歴 -->
+                        <div class="form-control w-full md:col-span-2">
+                            <label class="label"><span class="label-text font-semibold">最終学歴</span></label>
+                            <select class="select select-bordered w-full md:w-1/2">
+                                <option value="" disabled selected>選択してください</option>
+                                <option value="1">大学院卒</option>
+                                <option value="2">大学卒</option>
+                                <option value="3">短大卒</option>
+                                <option value="4">専門学校卒</option>
+                                <option value="5">高校卒</option>
+                                <option value="6">その他</option>
+                            </select>
+                        </div>
+
+                        <!-- 職歴 -->
+                        <div class="form-control w-full md:col-span-2">
+                            <label class="label"><span class="label-text font-semibold">職歴</span></label>
+                            <textarea class="textarea textarea-bordered h-24" placeholder="例: 2020年4月〜2023年3月 株式会社〇〇にてシステム開発に従事"></textarea>
+                        </div>
+
+                        <!-- 保有資格 -->
+                        <div class="form-control w-full md:col-span-2">
+                            <label class="label"><span class="label-text font-semibold">保有資格</span></label>
+                            <input type="text" class="input input-bordered w-full" placeholder="例: 応用情報技術者、TOEIC 800点" />
+                        </div>
+
+                        <!-- 日本語レベル -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">日本語レベル</span></label>
+                            <select class="select select-bordered w-full">
+                                <option value="" disabled selected>選択してください</option>
+                                <option value="N1">N1</option>
+                                <option value="N2">N2</option>
+                                <option value="N3">N3</option>
+                                <option value="N4">N4</option>
+                                <option value="N5">N5</option>
+                                <option value="NONE">なし</option>
+                            </select>
+                        </div>
+
+                        <!-- PCスキル -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">PCスキル</span></label>
+                            <div class="flex flex-wrap gap-4 mt-2">
+                                <label class="cursor-pointer flex items-center gap-2"><input type="checkbox" class="checkbox checkbox-primary checkbox-sm" /> <span>Word</span></label>
+                                <label class="cursor-pointer flex items-center gap-2"><input type="checkbox" class="checkbox checkbox-primary checkbox-sm" /> <span>Excel</span></label>
+                                <label class="cursor-pointer flex items-center gap-2"><input type="checkbox" class="checkbox checkbox-primary checkbox-sm" /> <span>PowerPoint</span></label>
+                            </div>
+                        </div>
+
+                        <!-- CAD/BIM経験 -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">CAD/BIM経験</span></label>
+                            <div class="flex gap-4 mt-2">
+                                <label class="cursor-pointer flex items-center gap-2">
+                                    <input type="radio" name="cad_exp" class="radio radio-primary radio-sm" /> <span>あり</span>
+                                </label>
+                                <label class="cursor-pointer flex items-center gap-2">
+                                    <input type="radio" name="cad_exp" class="radio radio-primary radio-sm" /> <span>なし</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- マネジメント経験 -->
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-semibold">マネジメント経験</span></label>
+                            <div class="flex gap-4 mt-2">
+                                <label class="cursor-pointer flex items-center gap-2">
+                                    <input type="radio" name="mgmt_exp" class="radio radio-primary radio-sm" /> <span>あり</span>
+                                </label>
+                                <label class="cursor-pointer flex items-center gap-2">
+                                    <input type="radio" name="mgmt_exp" class="radio radio-primary radio-sm" /> <span>なし</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 外国籍向けトグルスイッチ -->
+            <div class="bg-primary/5 border border-primary/20 rounded-lg p-4 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <h4 class="font-bold text-lg">外国籍の方はこちら</h4>
+                    <p class="text-sm text-base-content/70">外国籍の方はチェックを入れて、在留資格や希望についてご記入ください。</p>
+                </div>
+                <label class="cursor-pointer flex items-center gap-3">
+                    <span class="font-medium text-primary">入力する</span>
+                    <input type="checkbox" class="toggle toggle-primary toggle-lg" x-model="isForeigner" />
+                </label>
+            </div>
+
+            <!-- ④ & ⑤ 外国籍専用グループ -->
+            <div x-cloak x-show="isForeigner" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-[-10px]" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-[-10px]" class="space-y-10">
+                
+                <!-- ④ 在留関連 -->
+                <div class="card bg-base-100 shadow-md border border-base-200">
+                    <div class="card-body p-6 md:p-8">
+                        <h3 class="text-xl md:text-2xl font-bold border-l-4 border-info pl-3 mb-6">④ 在留関連 <span class="text-sm font-normal text-base-content/60 ml-2">外国籍専用</span></h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- 現在の在留資格 -->
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-semibold">現在の在留資格 <span class="badge badge-error badge-sm text-white ml-1">必須</span></span></label>
+                                <select class="select select-bordered w-full">
+                                    <option value="" disabled selected>選択してください</option>
+                                    <option value="1">技術・人文知識・国際業務</option>
+                                    <option value="2">特定技能</option>
+                                    <option value="3">留学</option>
+                                    <option value="4">家族滞在</option>
+                                    <option value="5">技能実習</option>
+                                    <option value="99">その他</option>
+                                </select>
+                            </div>
+
+                            <!-- 在留期限 -->
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-semibold">在留期限 <span class="badge badge-error badge-sm text-white ml-1">必須</span></span></label>
+                                <input type="date" class="input input-bordered w-full" />
+                            </div>
+
+                            <!-- 在留カード番号 -->
+                            <div class="form-control w-full md:col-span-2">
+                                <label class="label">
+                                    <span class="label-text font-semibold">在留カード番号</span>
+                                    <span class="label-text-alt text-base-content/60">※任意ですが入力推奨です</span>
+                                </label>
+                                <input type="text" class="input input-bordered w-full md:w-1/2" placeholder="例: AB12345678CD" />
+                            </div>
+
+                            <!-- 就労制限有無 -->
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-semibold">就労制限有無</span></label>
+                                <div class="flex gap-4 mt-2">
+                                    <label class="cursor-pointer flex items-center gap-2">
+                                        <input type="radio" name="work_limit" class="radio radio-info radio-sm" /> <span>あり（週28時間以内など）</span>
+                                    </label>
+                                    <label class="cursor-pointer flex items-center gap-2">
+                                        <input type="radio" name="work_limit" class="radio radio-info radio-sm" /> <span>なし</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- 特定技能試験合格有無 -->
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-semibold">特定技能試験合格有無</span></label>
+                                <div class="flex gap-4 mt-2">
+                                    <label class="cursor-pointer flex items-center gap-2">
+                                        <input type="radio" name="tokutei_pass" class="radio radio-info radio-sm" /> <span>合格済み</span>
+                                    </label>
+                                    <label class="cursor-pointer flex items-center gap-2">
+                                        <input type="radio" name="tokutei_pass" class="radio radio-info radio-sm" /> <span>未受験・不合格</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- 技能実習歴 -->
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-semibold">技能実習歴</span></label>
+                                <div class="flex gap-4 mt-2">
+                                    <label class="cursor-pointer flex items-center gap-2">
+                                        <input type="radio" name="ginou_exp" class="radio radio-info radio-sm" /> <span>あり</span>
+                                    </label>
+                                    <label class="cursor-pointer flex items-center gap-2">
+                                        <input type="radio" name="ginou_exp" class="radio radio-info radio-sm" /> <span>なし</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- 日本語試験レベル (詳細) -->
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-semibold">日本語試験の詳細 (点数など)</span></label>
+                                <input type="text" class="input input-bordered w-full" placeholder="例: JLPT N3 (110点)、NAT-TEST 3級" />
+                            </div>
+
+                            <!-- 日本在留歴 -->
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-semibold">日本在留歴 (累計)</span></label>
+                                <select class="select select-bordered w-full">
+                                    <option value="" disabled selected>選択してください</option>
+                                    <option value="1">1年未満</option>
+                                    <option value="2">1年〜3年</option>
+                                    <option value="3">3年〜5年</option>
+                                    <option value="4">5年以上</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ⑤ 希望・人物像 -->
+                <div class="card bg-base-100 shadow-md border border-base-200">
+                    <div class="card-body p-6 md:p-8">
+                        <h3 class="text-xl md:text-2xl font-bold border-l-4 border-info pl-3 mb-6">⑤ 希望・人物像 <span class="text-sm font-normal text-base-content/60 ml-2">重要項目</span></h3>
+                        
+                        <div class="grid grid-cols-1 gap-6">
+                            <!-- 将来的にやりたい仕事 -->
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-semibold">将来的にやりたい仕事</span></label>
+                                <textarea class="textarea textarea-bordered h-24" placeholder="例: ITエンジニアとして開発リーダーになりたいです。"></textarea>
+                            </div>
+
+                            <!-- 日本で学びたいこと -->
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-semibold">日本で学びたいこと</span></label>
+                                <textarea class="textarea textarea-bordered h-24" placeholder="例: 日本の高度な建築技術や、チームワークの進め方を学びたいです。"></textarea>
+                            </div>
+
+                            <!-- キャリア目標 -->
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-semibold">キャリア目標</span></label>
+                                <textarea class="textarea textarea-bordered h-24" placeholder="例: 3年後には設計業務を一人で担当できるようになること。"></textarea>
+                            </div>
+
+                            <!-- 長期就業希望有無 -->
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-semibold">長期就業希望有無（日本で長く働きたいか）</span></label>
+                                <div class="flex gap-4 mt-2">
+                                    <label class="cursor-pointer flex items-center gap-2">
+                                        <input type="radio" name="long_term" class="radio radio-info radio-sm" /> <span>はい（長く働きたい）</span>
+                                    </label>
+                                    <label class="cursor-pointer flex items-center gap-2">
+                                        <input type="radio" name="long_term" class="radio radio-info radio-sm" /> <span>いいえ（数年で帰国予定など）</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center pt-8 pb-12">
+                <button type="submit" class="btn btn-primary btn-lg px-12 md:px-24 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+                    登録する
+                </button>
+                <p class="text-sm text-base-content/60 mt-4">送信することで、プライバシーポリシーに同意したものとみなされます。</p>
+            </div>
+        </form>
+    </section>
+{% endblock content %}

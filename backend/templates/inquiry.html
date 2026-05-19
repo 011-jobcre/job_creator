@@ -1,0 +1,562 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}
+    {% trans "お問い合わせ" %} | JOB CREATOR
+{% endblock title %}
+{% block content %}
+    <!-- Hero -->
+    <section class="pt-24 md:pt-30 pb-6 md:pb-10 overflow-hidden border-b border-border">
+        <div class="content__pad-x text-center" data-aos="flip-left">
+            <h1 class="hero-title">{% trans "お問い合わせ" %}</h1>
+        </div>
+    </section>
+    <!-- Main Content -->
+    <section class="container content__pad-x content__pad-y space-y-32 overflow-hidden">
+        <section>
+            <!-- Form -->
+            <div class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                <div class="border border-border rounded-2xl p-6 md:p-10 overflow-hidden bg-surface shadow-sm"
+                     x-data="bunruiForm()"
+                     x-init="init()">
+                    <form class="space-y-4 md:space-y-6"
+                          method="post"
+                          action="{% url 'inquiry' %}"
+                          @submit="handleSubmit($event)">
+                        {% csrf_token %}
+                        <!-- 会社名 -->
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm tracking-widest ml-1">
+                                {% trans "会社名" %} <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text"
+                                   name="company_name"
+                                   required
+                                   x-model.trim="companyName"
+                                   @input="validateField('companyName')"
+                                   @blur="validateField('companyName')"
+                                   :class="fieldErrorClass('companyName')"
+                                   placeholder="{% trans "例：株式会社 JOB CREATOR" %}"
+                                   class="input outline-none w-full" />
+                            <p class="text-sm text-error ml-1"
+                               x-show="errors.companyName"
+                               x-text="errors.companyName"
+                               x-cloak></p>
+                        </div>
+                        <!-- 業種分類 -->
+                        <fieldset class="fieldset space-y-2 p-4 rounded-xl border border-border">
+                            <legend class="fieldset-legend text-sm tracking-widest ml-1">
+                                {% trans "業務分類" %} <span class="text-red-500">*</span>
+                            </legend>
+                            <!-- 大分類 -->
+                            {% include "inquiry/partials/_daibunrui_select.html" %}
+                            <!-- 中分類 (HTMX target) -->
+                            <div class="relative">
+                                <div id="chubunrui-wrapper">{% include "inquiry/partials/_chubunrui_select.html" with disabled=True %}</div>
+                            </div>
+                            <!-- 小分類 (HTMX target) -->
+                            <div class="relative">
+                                <div id="shobunrui-wrapper">{% include "inquiry/partials/_shobunrui_select.html" with disabled=True %}</div>
+                            </div>
+                            <!-- Summary display -->
+                            <div x-show="hasSelection"
+                                 class="mt-4 p-4 bg-primary/10 rounded-lg border border-primary/20"
+                                 x-cloak>
+                                <div class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-primary">info</span>
+                                    <div>
+                                        <p class="text-xs font-bold text-primary mb-1">{% trans "業務分類選択内容" %}:</p>
+                                        <p class="text-sm" x-text="summaryText"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <!-- 所属 -->
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm tracking-widest ml-1">
+                                {% trans "所属" %} <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text"
+                                   name="position"
+                                   required
+                                   x-model.trim="position"
+                                   @input="validateField('position')"
+                                   @blur="validateField('position')"
+                                   :class="fieldErrorClass('position')"
+                                   placeholder="{% trans "例：係長、主任など" %}"
+                                   class="input outline-none w-full" />
+                            <p class="text-sm text-error ml-1"
+                               x-show="errors.position"
+                               x-text="errors.position"
+                               x-cloak></p>
+                        </div>
+                        <!-- 担当者名 -->
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm tracking-widest ml-1">
+                                {% trans "担当者名" %} <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text"
+                                   name="contact_name"
+                                   required
+                                   x-model.trim="contactName"
+                                   @input="validateField('contactName')"
+                                   @blur="validateField('contactName')"
+                                   :class="fieldErrorClass('contactName')"
+                                   placeholder="{% trans "例：田中太郎" %}"
+                                   class="input outline-none w-full" />
+                            <p class="text-sm text-error ml-1"
+                               x-show="errors.contactName"
+                               x-text="errors.contactName"
+                               x-cloak></p>
+                        </div>
+                        <!-- お問い合わせ内容 -->
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm tracking-widest ml-1">
+                                {% trans "お問い合わせ内容" %} <span class="text-red-500">*</span>
+                            </label>
+                            <textarea type="text"
+                                      name="inquiry_content"
+                                      required
+                                      x-model.trim="inquiryContent"
+                                      @input="validateField('inquiryContent')"
+                                      @blur="validateField('inquiryContent')"
+                                      :class="fieldErrorClass('inquiryContent')"
+                                      placeholder="{% trans "例：具体的な課題やご要望をご記入ください。" %}"
+                                      class="textarea outline-none w-full"></textarea>
+                            <p class="text-sm text-error ml-1"
+                               x-show="errors.inquiryContent"
+                               x-text="errors.inquiryContent"
+                               x-cloak></p>
+                        </div>
+                        <!-- Privacy policy & Send button -->
+                        <div class="flex flex-col gap-3">
+                            <div class="flex justify-center items-center gap-3">
+                                <input type="checkbox"
+                                       id="privacy"
+                                       name="privacy_policy"
+                                       required
+                                       :checked="isAgreed"
+                                       @click="togglePrivacy($event)"
+                                       class="checkbox checkbox-primary" />
+                                <label for="privacy"
+                                       class="text-sm leading-relaxed cursor-pointer select-none">
+                                    {% blocktrans %}
+                                        <a href="#privacy_modal" @click.prevent.stop="openPrivacyDialog()" class="link link-primary link-hover font-bold">「プライバシーポリシー」および「利用規約」</a>に同意する
+                                    {% endblocktrans %}
+                                </label>
+                            </div>
+                            <button type="submit"
+                                    :disabled="!isAgreed || hasErrors()"
+                                    :class="!isAgreed || hasErrors() ? 'opacity-50 cursor-not-allowed hover:translate-y-0' : ''"
+                                    class="shine-btn btn btn-primary btn-wide btn-lg max-w-xs mx-auto">
+                                {% trans "送信する" %}
+                            </button>
+                        </div>
+                    </form>
+                    <!-- Privacy policy modal -->
+                    <dialog id="privacy_modal" class="modal" :class="{'modal-open': showDialog}">
+                        <div class="modal-box w-11/12 bg-surface max-w-xl">
+                            <div class="space-y-6 text-sm leading-relaxed tracking-wide max-h-[60vh] overflow-y-auto">
+                                <section class="space-y-4">
+                                    <p>{% trans "ご入力いただいた個人情報および企業情報は、お問い合わせ対応、ご相談対応、サービス提供検討のために利用いたします。" %}</p>
+                                    <p>{% trans "また、当社は、業務上知り得た相談内容、経営情報、技術情報その他機密性を有する情報について適切な安全管理および守秘義務の徹底に努めます。" %}</p>
+                                </section>
+                                <div class="pt-4 border-t border-border font-medium text-md">
+                                    {% url 'privacy-policy' as privacy_url %}
+                                    {% url 'terms-of-use' as terms_url %}
+                                    {% blocktrans %}
+                                        <a href="{{ privacy_url }}" target="_blank" class="link link-primary link-hover font-bold">「プライバシーポリシー」</a>および
+                                        <a href="{{ terms_url }}" target="_blank" class="link link-primary link-hover font-bold">「利用規約」</a>をご確認いただき、内容に同意の上、送信してください。
+                                    {% endblocktrans %}
+                                </div>
+                            </div>
+                            <div class="modal-action flex justify-end gap-3 mt-4">
+                                <button type="button"
+                                        class="btn btn-outline btn-neutral"
+                                        @click="closeDialog()">{% trans "キャンセル" %}</button>
+                                <button type="button"
+                                        class="shine-btn btn btn-primary"
+                                        @click="agreeToTerms()">{% trans "同意する" %}</button>
+                            </div>
+                        </div>
+                        <form method="dialog" class="modal-backdrop">
+                            <button type="button" @click="closeDialog()" class="cursor-default">close</button>
+                        </form>
+                    </dialog>
+                </div>
+            </div>
+        </section>
+    </section>
+{% endblock content %}
+{% block extra_scripts %}
+    <script>
+        function searchableSelect() {
+            return {
+                open: false,
+                search: '',
+                allOptions: [],
+                filteredOptions: [],
+                selectedText: '---------',
+                highlightedIndex: -1,
+
+                // Utility to get the actual select element
+                getSelect() {
+                    return this.$refs.realSelect?.querySelector('select');
+                },
+
+                init() {
+                    // Give a small delay to ensure DOM is fully ready, especially for HTMX swaps
+                    this.$nextTick(() => {
+                        this.updateOptions();
+                        
+                        // Observe the real select for changes (HTMX updates, manual resets)
+                        if (this.$refs.realSelect) {
+                            const observer = new MutationObserver(() => {
+                                this.updateOptions();
+                            });
+                            observer.observe(this.$refs.realSelect, { childList: true, subtree: true, attributes: true });
+                        }
+                    });
+
+                    // Watch search to reset highlighted index
+                    this.$watch('search', () => {
+                        this.highlightedIndex = this.filteredOptions.length > 0 ? 0 : -1;
+                    });
+                },
+
+                updateOptions() {
+                    const select = this.getSelect();
+                    if (!select || !select.options) {
+                        this.allOptions = [];
+                        this.filteredOptions = [];
+                        return;
+                    }
+                    
+                    this.allOptions = Array.from(select.options).map(opt => ({
+                        value: opt.value,
+                        text: opt.text
+                    }));
+                    this.filterOptions();
+                    this.updateSelectedText();
+                },
+
+                filterOptions() {
+                    if (!this.search) {
+                        this.filteredOptions = [...this.allOptions];
+                    } else {
+                        const s = this.search.toLowerCase();
+                        this.filteredOptions = this.allOptions.filter(opt =>
+                            opt.text.toLowerCase().includes(s)
+                        );
+                    }
+                },
+
+                updateSelectedText() {
+                    const select = this.getSelect();
+                    if (!select || select.selectedIndex === -1) {
+                        this.selectedText = '---------';
+                        return;
+                    }
+                    const selected = select.options[select.selectedIndex];
+                    this.selectedText = selected ? selected.text : '---------';
+                },
+
+                selectOption(opt) {
+                    if (!opt) return;
+                    const select = this.getSelect();
+                    if (!select) return;
+
+                    select.value = opt.value;
+                    // Trigger events for HTMX and Alpine x-model
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                    select.dispatchEvent(new Event('input', { bubbles: true }));
+                    
+                    this.open = false;
+                    this.search = '';
+                    this.updateSelectedText();
+                    this.highlightedIndex = -1;
+                },
+
+                highlightNext() {
+                    if (this.highlightedIndex < this.filteredOptions.length - 1) {
+                        this.highlightedIndex++;
+                        this.$nextTick(() => this.scrollToHighlighted());
+                    }
+                },
+
+                highlightPrev() {
+                    if (this.highlightedIndex > 0) {
+                        this.highlightedIndex--;
+                        this.$nextTick(() => this.scrollToHighlighted());
+                    }
+                },
+
+                selectHighlighted() {
+                    if (this.highlightedIndex >= 0 && this.highlightedIndex < this.filteredOptions.length) {
+                        this.selectOption(this.filteredOptions[this.highlightedIndex]);
+                    }
+                },
+
+                scrollToHighlighted() {
+                    const list = this.$refs.optionsList;
+                    const highlighted = list.children[this.highlightedIndex];
+                    if (highlighted) {
+                        highlighted.scrollIntoView({ block: 'nearest' });
+                    }
+                },
+
+                toggle() {
+                    const select = this.getSelect();
+                    if (!select || select.disabled) return;
+                    
+                    this.open = !this.open;
+                    if (this.open) {
+                        this.highlightedIndex = this.filteredOptions.findIndex(opt => opt.value === select.value);
+                        if (this.highlightedIndex === -1 && this.filteredOptions.length > 0) {
+                            this.highlightedIndex = 0;
+                        }
+                        this.$nextTick(() => {
+                            this.$refs.searchInput.focus();
+                            this.scrollToHighlighted();
+                        });
+                    }
+                }
+            }
+        }
+
+        function bunruiForm() {
+
+            return {
+                // State cho 3 cấp phân loại nghiệp vụ
+                daiSelected: null,
+                chuSelected: null,
+                shoSelected: null,
+                hasSelection: false,
+                summaryText: '',
+
+                // State cho privacy policy modal
+                isAgreed: false,
+                showDialog: false,
+
+                // State cho các field input text
+                companyName: '',
+                position: '',
+                contactName: '',
+                inquiryContent: '',
+
+                // State lưu lỗi validate và message required tương ứng
+                errors: {},
+                requiredMessages: {
+                    companyName: "{% trans '会社名を入力してください'|escapejs %}",
+                    daiSelected: "{% trans '大分類を選択してください'|escapejs %}",
+                    chuSelected: "{% trans '中分類を選択してください'|escapejs %}",
+                    shoSelected: "{% trans '小分類を選択してください'|escapejs %}",
+                    position: "{% trans '所属を入力してください'|escapejs %}",
+                    contactName: "{% trans '担当者名を入力してください'|escapejs %}",
+                    inquiryContent: "{% trans 'お問い合わせ内容を入力してください'|escapejs %}",
+                },
+
+                init() {
+                    // Đồng bộ state sau khi HTMX render lại 中分類 / 小分類
+                    document.body.addEventListener('htmx:afterSwap', (evt) => {
+                        if (evt.detail.target.id === 'chubunrui-wrapper') {
+                            this.daiSelected = document.querySelector('#id_daibunrui')?.value;
+                            this.resetChuSho();
+                            //this.clearFieldError('chuSelected');
+                            //this.clearFieldError('shoSelected');
+                        }
+                        if (evt.detail.target.id === 'shobunrui-wrapper') {
+                            this.chuSelected = document.querySelector('#id_chubunrui')?.value;
+                            //this.clearFieldError('shoSelected');
+                        }
+                    });
+                },
+
+                // Reset state của 中分類 và 小分類 khi 大分類 thay đổi
+                resetChuSho() {
+                    this.chuSelected = null;
+                    this.shoSelected = null;
+                    this.updateSummary();
+                },
+
+                // Xử lý khi user chọn 大分類: reset các cấp con và validate lại
+                handleDaiChange(event) {
+                    this.daiSelected = event.target.value;
+                    this.resetChuSho();
+                    // this.resetSelect('id_chubunrui', "{% trans '中分類を選択してください'|escapejs %}");
+                    // this.resetSelect('id_shobunrui', "{% trans '小分類を選択してください'|escapejs %}");
+                    this.resetSelect('id_chubunrui', "---------");
+                    this.resetSelect('id_shobunrui', "---------");
+                    this.validateField('daiSelected');
+                    this.validateField('chuSelected');
+                    this.validateField('shoSelected');
+                },
+
+                // Xử lý khi user chọn 中分類: reset 小分類 và validate lại
+                handleChuChange(event) {
+                    this.chuSelected = event.target.value;
+                    this.shoSelected = null;
+                    // this.resetSelect('id_shobunrui', "{% trans '小分類を選択してください'|escapejs %}");
+                    this.resetSelect('id_shobunrui', "---------");
+                    this.updateSummary();
+                    this.validateField('chuSelected');
+                    this.validateField('shoSelected');
+                },
+
+                // Xử lý khi user chọn 小分類
+                handleShoChange(event) {
+                    this.shoSelected = event.target.value;
+                    this.updateSummary();
+                    this.validateField('shoSelected');
+                },
+
+                // Đưa select phụ về trạng thái placeholder + disabled trong lúc chờ HTMX swap
+                resetSelect(id, placeholder) {
+                    const select = document.getElementById(id);
+                    if (!select) return;
+
+                    select.innerHTML = '';
+                    select.append(new Option(placeholder, ''));
+                    select.value = '';
+                    select.disabled = true;
+                },
+
+                // Cập nhật phần summary hiển thị lựa chọn hiện tại
+                updateSummary() {
+                    const daiText = document.querySelector('#id_daibunrui option:checked')?.text || '';
+                    const chuText = document.querySelector('#id_chubunrui option:checked')?.text || '';
+                    const shoText = document.querySelector('#id_shobunrui option:checked')?.text || '';
+
+                    const parts = [daiText, chuText, shoText].filter(p => p && !p.includes('選択してください') && !p.includes('Please select') && !p.includes('---------'));
+                    this.summaryText = parts.join(' > ');
+                    this.hasSelection = parts.length > 0;
+                },
+
+                // Lấy value mới nhất từ DOM đối với select, hoặc từ Alpine state đối với input text
+                getFieldValue(field) {
+                    if (['daiSelected', 'chuSelected', 'shoSelected'].includes(field)) {
+                        const selectIds = {
+                            daiSelected: 'id_daibunrui',
+                            chuSelected: 'id_chubunrui',
+                            shoSelected: 'id_shobunrui',
+                        };
+                        return document.getElementById(selectIds[field])?.value || '';
+                    }
+
+                    return this[field] || '';
+                },
+
+                // Validate một field required; bỏ qua select đang disabled
+                validateField(field) {
+                    const selectIds = {
+                        daiSelected: 'id_daibunrui',
+                        chuSelected: 'id_chubunrui',
+                        shoSelected: 'id_shobunrui',
+                    };
+                    const select = selectIds[field] ? document.getElementById(selectIds[field]) : null;
+
+                    if (select?.disabled) {
+                        const { [field]: _removed, ...remainingErrors } = this.errors;
+                        this.errors = remainingErrors;
+                        return true;
+                    }
+
+                    const value = this.getFieldValue(field);
+
+                    if (!String(value).trim()) {
+                        this.errors = {
+                            ...this.errors,
+                            [field]: this.requiredMessages[field],
+                        };
+                        return false;
+                    }
+
+                    const { [field]: _removed, ...remainingErrors } = this.errors;
+                    this.errors = remainingErrors;
+                    return true;
+                },
+
+                // Validate toàn bộ field required trước khi mở modal hoặc submit
+                validateForm() {
+                    return Object.keys(this.requiredMessages)
+                        .map((field) => this.validateField(field))
+                        .every(Boolean);
+                },
+
+                // Kiểm tra form hiện còn lỗi validate nào không
+                hasErrors() {
+                    return Object.keys(this.errors).length > 0;
+                },
+
+                // Thêm class lỗi cho field đang invalid
+                fieldErrorClass(field) {
+                    return this.errors[field] ? 'border-error focus:border-error focus:ring-error' : '';
+                },
+
+                // Focus và scroll tới field lỗi đầu tiên để user biết cần sửa chỗ nào
+                focusFirstInvalidField() {
+                    const fieldSelectors = {
+                        companyName: '[x-model\\.trim="companyName"]',
+                        daiSelected: '#id_daibunrui',
+                        chuSelected: '#id_chubunrui',
+                        shoSelected: '#id_shobunrui',
+                        position: '[x-model\\.trim="position"]',
+                        contactName: '[x-model\\.trim="contactName"]',
+                        inquiryContent: '[x-model\\.trim="inquiryContent"]',
+                    };
+
+                    const firstInvalidField = Object.keys(this.requiredMessages)
+                        .find((field) => this.errors[field]);
+                    const target = firstInvalidField ? document.querySelector(fieldSelectors[firstInvalidField]) : null;
+
+                    target?.focus({ preventScroll: true });
+                    target?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                },
+
+                // Chỉ mở privacy modal khi các field required đã hợp lệ
+                openPrivacyDialog() {
+                    if (!this.validateForm()) {
+                        this.focusFirstInvalidField();
+                        return;
+                    }
+
+                    this.showDialog = true;
+                    // Tự động scroll tới modal
+                    this.$nextTick(() => {
+                        const modal = document.getElementById('privacy_modal');
+                        modal?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                },
+
+                // Chặn submit nếu form còn lỗi hoặc chưa đồng ý privacy policy
+                handleSubmit(event) {
+                    if (!this.validateForm() || !this.isAgreed) {
+                        event.preventDefault();
+                        this.focusFirstInvalidField();
+                    }
+                },
+
+                // Click checkbox: nếu chưa đồng ý thì validate trước rồi mới mở modal
+                togglePrivacy(event) {
+                    if (this.isAgreed) {
+                        this.isAgreed = false;
+                    } else {
+                        event.preventDefault();
+                        event.target.checked = false;
+                        this.openPrivacyDialog();
+                    }
+                },
+
+                // User bấm đồng ý trong modal
+                agreeToTerms() {
+                    this.isAgreed = true;
+                    this.showDialog = false;
+                },
+
+                // Đóng privacy modal mà không thay đổi trạng thái đồng ý
+                closeDialog() {
+                    this.showDialog = false;
+                }
+            }
+        }
+    </script>
+{% endblock extra_scripts %}

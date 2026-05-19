@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}
+    {% trans "お問い合わせ" %} | JOB CREATOR
+{% endblock title %}
+{% block content %}
+    <!-- Hero -->
+    <section class="pt-24 md:pt-30 pb-6 md:pb-10 overflow-hidden border-b border-border">
+        <div class="content__pad-x text-center" data-aos="flip-left">
+            <h1 class="hero-title">
+                {% blocktrans %}お問い合わせ<br />ありがとうございました{% endblocktrans %}
+            </h1>
+        </div>
+    </section>
+    <!-- Main Content -->
+    <section class="container content__pad-x content__pad-y space-y-32 overflow-hidden">
+        <div class="max-w-3xl mx-auto text-center space-y-8"
+             data-aos="fade-up"
+             data-aos-delay="100">
+            <div class="space-y-4">
+                <p class="text-3xl leading-relaxed">{% trans "お問い合わせを受け付けました" %}</p>
+                <p class="text-lg leading-relaxed">{% trans "内容を確認の上、担当者よりご連絡いたします" %}</p>
+            </div>
+            <a href="{% url 'home' %}" class="shine-btn btn btn-primary btn-wide">{% trans "ホームへ戻る" %}</a>
+        </div>
+    </section>
+{% endblock content %}

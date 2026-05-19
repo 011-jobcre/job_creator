@@ -1,0 +1,376 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}
+    {% trans "サービス" %} | JOB CREATOR
+{% endblock title %}
+{% block content %}
+    <!-- Hero -->
+    <section class="pt-24 md:pt-30 pb-6 md:pb-10 overflow-hidden border-b border-border">
+        <div class="content__pad-x text-center" data-aos="flip-left">
+            <h1 class="hero-title">{% trans "サービス" %}</h1>
+        </div>
+    </section>
+    <!-- Main Content -->
+    <section class="container content__pad-x content__pad-y space-y-32 overflow-hidden">
+        <!-- Section Header -->
+        <div class="text-center mx-auto mb-16" data-aos="fade-up">
+            <h2 class="section-title">{% trans "職業紹介事業" %}</h2>
+        </div>
+        <!-- Vertical Timeline Container -->
+        <div class="max-w-4xl mx-auto px-2 md:px-4">
+            <!-- Step 1 -->
+            <div class="flex gap-4 md:gap-6 group relative"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
+                <!-- Track Line & Icon Badge -->
+                <div class="flex flex-col items-center shrink-0">
+                    <div class="service-icon-number">01</div>
+                    <div class="service-line"></div>
+                </div>
+                <!-- Content Card -->
+                <div class="flex-1 pb-8 md:pb-12">
+                    <div class="collapse collapse-arrow service-card">
+                        <input type="checkbox" />
+                        <div class="collapse-title flex flex-wrap items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                    <span class="material-symbols-outlined text-xl">app_registration</span>
+                                </div>
+                                <h3 class="text-base md:text-lg font-bold text-neutral">{% trans "受付・登録" %}</h3>
+                            </div>
+                        </div>
+                        <div class="collapse-content card md:card-side">
+                            <div class="card-body">
+                                <p class="text-sm md:text-base leading-relaxed">{% trans "サイトにて必要事項をご入力いただき送信。" %}</p>
+                            </div>
+                            <figure class="shrink-0">
+                                <img src="{% static "images/job_creator_services_step1.webp" %}"
+                                     alt="Step 1"
+                                     class="w-75 h-52 object-cover" />
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 2 -->
+            <div class="flex gap-4 md:gap-6 group relative"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
+                <!-- Track Line & Icon Badge -->
+                <div class="flex flex-col items-center shrink-0">
+                    <div class="service-icon-number">02</div>
+                    <div class="service-line"></div>
+                </div>
+                <!-- Content Card -->
+                <div class="flex-1 pb-8 md:pb-12">
+                    <div class="collapse collapse-arrow service-card">
+                        <input type="checkbox" />
+                        <div class="collapse-title flex flex-wrap items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                    <span class="material-symbols-outlined text-xl">videocam</span>
+                                </div>
+                                <h3 class="text-base md:text-lg font-bold text-neutral">{% trans "事前面接・カウンセリング（オンライン）" %}</h3>
+                            </div>
+                        </div>
+                        <div class="collapse-content card md:card-side">
+                            <div class="card-body">
+                                <p class="text-sm md:text-base leading-relaxed">{% trans "あなたの現状・希望をヒアリングさせていただきます。" %}</p>
+                            </div>
+                            <figure class="shrink-0">
+                                <img src="{% static "images/job_creator_services_step2.webp" %}"
+                                     alt="Step 2"
+                                     class="w-75 h-52 object-cover" />
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 3 -->
+            <div class="flex gap-4 md:gap-6 group relative"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
+                <!-- Track Line & Icon Badge -->
+                <div class="flex flex-col items-center shrink-0">
+                    <div class="service-icon-number">03</div>
+                    <div class="service-line"></div>
+                </div>
+                <!-- Content Card -->
+                <div class="flex-1 pb-8 md:pb-12">
+                    <div class="collapse collapse-arrow service-card">
+                        <input type="checkbox" />
+                        <div class="collapse-title flex flex-wrap items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                    <span class="material-symbols-outlined text-xl">business</span>
+                                </div>
+                                <h3 class="text-base md:text-lg font-bold text-neutral">{% trans "企業紹介" %}</h3>
+                            </div>
+                        </div>
+                        <div class="collapse-content card md:card-side">
+                            <div class="card-body">
+                                <p class="text-sm md:text-base leading-relaxed">{% trans "紹介先企業候補をお伝えいたします。各企業に就職した場合のメリット・デメリットを包み隠さずお伝えいたします。" %}</p>
+                            </div>
+                            <figure class="shrink-0">
+                                <img src="{% static "images/job_creator_services_step3.webp" %}"
+                                     alt="Step 3"
+                                     class="w-75 h-52 object-cover" />
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 4 -->
+            <div class="flex gap-4 md:gap-6 group relative"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
+                <!-- Track Line & Icon Badge -->
+                <div class="flex flex-col items-center shrink-0">
+                    <div class="service-icon-number">04</div>
+                    <div class="service-line"></div>
+                </div>
+                <!-- Content Card -->
+                <div class="flex-1 pb-8 md:pb-12">
+                    <div class="collapse collapse-arrow service-card">
+                        <input type="checkbox" />
+                        <div class="collapse-title flex flex-wrap items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                    <span class="material-symbols-outlined text-xl">edit_note</span>
+                                </div>
+                                <h3 class="text-base md:text-lg font-bold text-neutral">{% trans "履歴書・ES添削" %}</h3>
+                            </div>
+                        </div>
+                        <div class="collapse-content card md:card-side">
+                            <div class="card-body">
+                                <p class="text-sm md:text-base leading-relaxed">{% trans "弊社より、履歴書・ESのフォーマットをメールにて送らせていただきます。ご記入後、ご返信ください。" %}</p>
+                                <div class="bg-white border border-border rounded-xl p-2 md:p-3 text-xs text-muted flex items-start gap-2.5">
+                                    <span class="text-primary font-bold">📢</span>
+                                    <p>{% trans "メールにてご質問をさせていただき、必要と思われる個所の添削を行います。" %}</p>
+                                </div>
+                            </div>
+                            <figure class="shrink-0">
+                                <img src="{% static "images/job_creator_services_step4.webp" %}"
+                                     alt="Step 4"
+                                     class="w-75 h-52 object-cover" />
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 5 -->
+            <div class="flex gap-4 md:gap-6 group relative"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
+                <!-- Track Line & Icon Badge -->
+                <div class="flex flex-col items-center shrink-0">
+                    <div class="service-icon-number">05</div>
+                    <div class="service-line"></div>
+                </div>
+                <!-- Content Card -->
+                <div class="flex-1 pb-8 md:pb-12">
+                    <div class="collapse collapse-arrow service-card">
+                        <input type="checkbox" />
+                        <div class="collapse-title flex flex-wrap items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                    <span class="material-symbols-outlined text-xl">record_voice_over</span>
+                                </div>
+                                <h3 class="text-base md:text-lg font-bold text-neutral">{% trans "面接対策カウンセリング（オンライン）" %}</h3>
+                            </div>
+                        </div>
+                        <div class="collapse-content card md:card-side">
+                            <div class="card-body">
+                                <p class="text-sm md:text-base leading-relaxed">{% trans "想定問答を使い、模擬面接を行います。模擬面接後に企業面接の対策をお伝えいたします。" %}</p>
+                            </div>
+                            <figure class="shrink-0">
+                                <img src="{% static "images/job_creator_services_step5.webp" %}"
+                                     alt="Step 5"
+                                     class="w-75 h-52 object-cover" />
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 6 -->
+            <div class="flex gap-4 md:gap-6 group relative"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
+                <!-- Track Line & Icon Badge -->
+                <div class="flex flex-col items-center shrink-0">
+                    <div class="service-icon-number">06</div>
+                    <div class="service-line"></div>
+                </div>
+                <!-- Content Card -->
+                <div class="flex-1 pb-8 md:pb-12">
+                    <div class="collapse collapse-arrow service-card">
+                        <input type="checkbox" />
+                        <div class="collapse-title flex flex-wrap items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                    <span class="material-symbols-outlined text-xl">groups</span>
+                                </div>
+                                <h3 class="text-base md:text-lg font-bold text-neutral">{% trans "企業面接" %}</h3>
+                            </div>
+                        </div>
+                        <div class="collapse-content card md:card-side">
+                            <div class="card-body">
+                                <p class="text-sm md:text-base leading-relaxed">{% trans "候補企業との面接。" %}</p>
+                                <div class="bg-white border border-border rounded-xl p-3 md:p-4 text-xs text-muted flex flex-col gap-2">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-primary font-bold">✓</span>
+                                        <p>{% trans "現地・オンラインの別については、状況に応じて対応していただきます。" %}</p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-primary font-bold">✓</span>
+                                        <p>{% trans "システムエンジニア職については、別途実技試験があります。" %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <figure class="shrink-0">
+                                <img src="{% static "images/job_creator_services_step6.webp" %}"
+                                     alt="Step 6"
+                                     class="w-75 h-52 object-cover" />
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 7 -->
+            <div class="flex gap-4 md:gap-6 group relative"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
+                <!-- Track Line & Icon Badge -->
+                <div class="flex flex-col items-center shrink-0">
+                    <div class="service-icon-number">07</div>
+                    <div class="service-line"></div>
+                </div>
+                <!-- Content Card -->
+                <div class="flex-1 pb-8 md:pb-12">
+                    <div class="collapse collapse-arrow service-card">
+                        <input type="checkbox" />
+                        <div class="collapse-title flex flex-wrap items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                    <span class="material-symbols-outlined text-xl">verified</span>
+                                </div>
+                                <h3 class="text-base md:text-lg font-bold text-neutral">{% trans "内定通知後ヒアリング" %}</h3>
+                            </div>
+                        </div>
+                        <div class="collapse-content card md:card-side">
+                            <div class="card-body">
+                                <p class="text-sm md:text-base leading-relaxed">{% trans "内定をいただきましたら、再度 就業に係る不安事項をお伺いし、意思確認を行います。" %}</p>
+                            </div>
+                            <figure class="shrink-0">
+                                <img src="{% static "images/job_creator_services_step7.webp" %}"
+                                     alt="Step 7"
+                                     class="w-75 h-52 object-cover" />
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 8 -->
+            <div class="flex gap-4 md:gap-6 group relative"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
+                <!-- Track Line & Icon Badge -->
+                <div class="flex flex-col items-center shrink-0">
+                    <div class="service-icon-number">08</div>
+                    <div class="service-line"></div>
+                </div>
+                <!-- Content Card -->
+                <div class="flex-1 pb-8 md:pb-12">
+                    <div class="collapse collapse-arrow service-card">
+                        <input type="checkbox" />
+                        <div class="collapse-title flex flex-wrap items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                    <span class="material-symbols-outlined text-xl">celebration</span>
+                                </div>
+                                <h3 class="text-base md:text-lg font-bold text-neutral">{% trans "就職" %}</h3>
+                            </div>
+                        </div>
+                        <div class="collapse-content card md:card-side">
+                            <div class="card-body">
+                                <p class="text-sm md:text-base leading-relaxed">{% trans "新しい職場での就業がスタートします。" %}</p>
+                            </div>
+                            <figure class="shrink-0">
+                                <img src="{% static "images/job_creator_services_step8.webp" %}"
+                                     alt="Step 8"
+                                     class="w-75 h-52 object-cover" />
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 9 -->
+            <div class="flex gap-4 md:gap-6 group relative"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
+                <!-- Track Line & Icon Badge -->
+                <div class="flex flex-col items-center shrink-0">
+                    <div class="service-icon-number">09</div>
+                    <div class="service-line"></div>
+                </div>
+                <!-- Content Card -->
+                <div class="flex-1 pb-8 md:pb-12">
+                    <div class="collapse collapse-arrow service-card">
+                        <input type="checkbox" />
+                        <div class="collapse-title flex flex-wrap items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                    <span class="material-symbols-outlined text-xl">support_agent</span>
+                                </div>
+                                <h3 class="text-base md:text-lg font-bold text-neutral">{% trans "就職後定期ヒアリング" %}</h3>
+                            </div>
+                        </div>
+                        <div class="collapse-content card md:card-side">
+                            <div class="card-body">
+                                <p class="text-sm md:text-base leading-relaxed">
+                                    {% trans "1～2か月に1.2回程度ヒアリング調査をいたします。就職後の悩みや就業内容と募集要項に齟齬がないか等の確認を行います。" %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container content__pad-x content__pad-y max-w-5xl space-y-10">
+        <!-- Section 1 -->
+        <div class="collapse collapse-arrow bg-surface border border-border shadow-sm"
+             data-aos="fade-up"
+             data-aos-delay="100">
+            <input type="checkbox" checked="checked" />
+            <h2 class="collapse-title section-title">{% trans "登録支援機関の運営" %}</h2>
+            <p class="collapse-content text-sm leading-relaxed tracking-wide">
+                {% trans "登録支援機関は「特定技能外国人」やそれを受入れる所属機関（企業）のためのものです。" %}
+                <br />
+                {% trans "安心して働けるようにサポートしたり、企業様が外国人労働者の受入れに不安を抱くことがないようにサポートいたします。" %}
+                <br />
+                {% trans "尚、口座開設・健康診断サポート等の必須事項については、通訳・翻訳サービス等も含めて、無料にて行っております。" %}
+            </p>
+        </div>
+        <!-- Section 2 -->
+        <div class="collapse collapse-arrow bg-surface border border-border shadow-sm"
+             data-aos="fade-up"
+             data-aos-delay="200">
+            <input type="checkbox" />
+            <h2 class="collapse-title section-title">{% trans "翻訳・通訳サービス" %}</h2>
+            <p class="collapse-content text-sm leading-relaxed tracking-wide">
+                {% trans "外国人労働者が安全・安心して働けることはもとより、受入れる企業様が言葉の壁などの事由により、生産性を落とすことが無いように、安全衛生教育（入社教育）時の通訳、就業規則・作業指示書の翻訳等のサポートを無料にて行っております。" %}
+            </p>
+        </div>
+        <!-- Section 3 -->
+        <div class="collapse collapse-arrow bg-surface border border-border shadow-sm"
+             data-aos="fade-up"
+             data-aos-delay="300">
+            <input type="checkbox" />
+            <h2 class="collapse-title section-title">{% trans "生活サポート" %}</h2>
+            <p class="collapse-content text-sm leading-relaxed tracking-wide">
+                {% trans "寮などが必要な場合においては、事前にご相談いただければ、弊社借上げ社宅等の斡旋を行い、就労者には安心を企業様には煩わしさを感じさせない運営を行っております。" %}
+            </p>
+        </div>
+    </section>
+{% endblock content %}

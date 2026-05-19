@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}
+    {% trans "プライバシーポリシー" %} | JOB CREATOR
+{% endblock title %}
+{% block content %}
+    <!-- Hero -->
+    <section class="pt-24 md:pt-30 pb-6 md:pb-10 overflow-hidden border-b border-border">
+        <div class="content__pad-x text-center" data-aos="flip-left">
+            <h1 class="hero-title">{% trans "プライバシーポリシー" %}</h1>
+        </div>
+    </section>
+    <!-- Main Content -->
+    <section class="container content__pad-x content__pad-y flex justify-center">
+        <section class="w-full max-w-6xl" data-aos="fade-up" data-aos-delay="200">
+            <div class="bg-surface/50 backdrop-blur-md border border-border rounded-2xl shadow-sm overflow-hidden p-8 md:p-12">
+                <header class="mb-12 border-b border-border/50 pb-8 text-center">
+                    <h3 class="font-bold text-xl md:text-3xl text-primary tracking-widest mb-4">{% trans "個人情報の取扱いについて" %}</h3>
+                </header>
+                <div class="space-y-12 text-base leading-relaxed tracking-wide">
+                    <div class="prose max-w-none">
+                        <p class="text-lg leading-relaxed mb-8">{% trans "当社は、お問い合わせ・採用募集等に際してご提供いただく個人情報について、以下の通り適切に取り扱います" %}</p>
+                        <div class="grid gap-12">
+                            <!-- Article 1 -->
+                            <section class="space-y-4">
+                                <h4 class="flex items-center gap-3 font-bold text-xl text-primary tracking-wider uppercase">
+                                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/5 text-sm">01</span>
+                                    {% trans "取得する個人情報" %}
+                                </h4>
+                                <p class="pl-11">{% trans "当社は、氏名、会社名、連絡先、メールアドレス、住所、その他お問い合わせに含まれる情報を取得する場合があります。" %}</p>
+                            </section>
+                            <!-- Article 2 -->
+                            <section class="space-y-4">
+                                <h4 class="flex items-center gap-3 font-bold text-xl text-primary tracking-wider uppercase">
+                                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/5 text-sm">02</span>
+                                    {% trans "利用目的" %}
+                                </h4>
+                                <div class="pl-11 space-y-4">
+                                    <p>{% trans "取得した個人情報は、以下の目的のために利用いたします。" %}</p>
+                                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 list-none">
+                                        <li class="flex items-start gap-3 text-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-primary/40 mt-2 shrink-0"></span>
+                                            {% trans "お問い合わせへの回答" %}
+                                        </li>
+                                        <li class="flex items-start gap-3 text-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-primary/40 mt-2 shrink-0"></span>
+                                            {% trans "ご依頼・ご相談への対応" %}
+                                        </li>
+                                        <li class="flex items-start gap-3 text-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-primary/40 mt-2 shrink-0"></span>
+                                            {% trans "採用選考および関連する連絡" %}
+                                        </li>
+                                        <li class="flex items-start gap-3 text-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-primary/40 mt-2 shrink-0"></span>
+                                            {% trans "サービス改善・品質向上" %}
+                                        </li>
+                                        <li class="flex items-start gap-3 text-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-primary/40 mt-2 shrink-0"></span>
+                                            {% trans "当社サービス・関連情報のご案内" %}
+                                        </li>
+                                        <li class="flex items-start gap-3 text-sm">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-primary/40 mt-2 shrink-0"></span>
+                                            {% trans "法令等に基づく対応" %}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </section>
+                            <!-- Article 3 -->
+                            <section class="space-y-4">
+                                <h4 class="flex items-center gap-3 font-bold text-xl text-primary tracking-wider uppercase">
+                                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/5 text-sm">03</span>
+                                    {% trans "第三者提供について" %}
+                                </h4>
+                                <p class="pl-11">{% trans "当社は、法令に基づく場合を除き、本人の同意なく第三者へ個人情報を提供いたしません。" %}</p>
+                            </section>
+                            <!-- Article 4 -->
+                            <section class="space-y-4">
+                                <h4 class="flex items-center gap-3 font-bold text-xl text-primary tracking-wider uppercase">
+                                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/5 text-sm">04</span>
+                                    {% trans "安全管理" %}
+                                </h4>
+                                <p class="pl-11">{% trans "当社は、個人情報への不正アクセス、漏洩、滅失または毀損の防止その他個人情報の安全管理のため、適切な措置を講じます。" %}</p>
+                            </section>
+                            <!-- Article 5 -->
+                            <section class="space-y-4">
+                                <h4 class="flex items-center gap-3 font-bold text-xl text-primary tracking-wider uppercase">
+                                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/5 text-sm">05</span>
+                                    {% trans "委託について" %}
+                                </h4>
+                                <p class="pl-11">{% trans "利用目的達成のために必要な範囲で、個人情報の取扱いを外部へ委託する場合があります。この場合、適切な委託管理を行います。" %}</p>
+                            </section>
+                            <!-- Article 6 -->
+                            <section class="space-y-4">
+                                <h4 class="flex items-center gap-3 font-bold text-xl text-primary tracking-wider uppercase">
+                                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/5 text-sm">06</span>
+                                    {% trans "開示・訂正・削除等について" %}
+                                </h4>
+                                <p class="pl-11">{% trans "ご本人から自己の個人情報について、開示、訂正、利用停止、削除等の請求があった場合には、法令に従い適切に対応いたします。" %}</p>
+                            </section>
+                            <!-- Article 7 -->
+                            <section class="space-y-4">
+                                <h4 class="flex items-center gap-3 font-bold text-xl text-primary tracking-wider uppercase">
+                                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/5 text-sm">07</span>
+                                    {% trans "お問い合わせ窓口" %}
+                                </h4>
+                                <div class="pl-11">
+                                    <p class="mb-6">{% trans "個人情報の取扱いに関するお問い合わせは、下記窓口までご連絡ください。" %}</p>
+                                    <div class="flex justify-start">
+                                        <div class="overflow-hidden p-8 bg-primary/2 border border-primary/10 rounded-2xl shadow-sm group transition-all hover:bg-primary/4 hover:border-primary/20 hover:shadow-md">
+                                            <div class="space-y-4">
+                                                <p class="text-xl font-bold text-primary">{% trans "株式会社 JOB CREATOR　カスタマーサービス係" %}</p>
+                                                <a href="https://maps.app.goo.gl/kxFzT2Vso1XY4Gnp7"
+                                                   rel="noopener noreferrer"
+                                                   target="_blank"
+                                                   class="flex items-center gap-3 hover:text-primary transition-all">
+                                                    {% trans "福岡県行橋市中央三丁目５番２５号" %}
+                                                </a>
+                                                <div class="flex flex-wrap gap-6">
+                                                    <a href="tel:0800-808-0325"
+                                                       class="flex items-center gap-3 text-lg font-medium hover:text-primary transition-all group/link">
+                                                        <div class="w-10 h-10 rounded-full bg-white border border-border flex items-center justify-center group-hover/link:border-primary/30 group-hover/link:shadow-sm">
+                                                            <span class="text-xl">📞</span>
+                                                        </div>
+                                                        0800-808-0325
+                                                    </a>
+                                                    <a href="mailto:info@jobcre.co.jp"
+                                                       class="flex items-center gap-3 text-lg font-medium hover:text-primary transition-all group/link">
+                                                        <div class="w-10 h-10 rounded-full bg-white border border-border flex items-center justify-center group-hover/link:border-primary/30 group-hover/link:shadow-sm">
+                                                            <span class="text-xl">✉️</span>
+                                                        </div>
+                                                        info@jobcre.co.jp
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+{% endblock content %}

@@ -1,0 +1,153 @@
+{% load static i18n %}
+<nav class="fixed top-0 left-0 right-0 z-100 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-border h-20 flex items-center">
+    <div class="container content__pad-x w-full flex items-center justify-between">
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="text-2xl font-black tracking-widest">JOB CREATOR</a>
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center gap-6 md:gap-8">
+            <a href="{% url 'home' %}"
+               class="text-sm font-semibold hover:text-primary-light transition-colors">{% trans "ホーム" %}</a>
+            <a href="{% url 'about' %}"
+               class="text-sm font-semibold hover:text-primary-light transition-colors">{% trans "会社概要" %}</a>
+            <a href="{% url 'services' %}"
+               class="text-sm font-semibold hover:text-primary-light transition-colors">{% trans "サービス" %}</a>
+            <a href="{% url 'register' %}"
+               class="text-sm font-semibold hover:text-primary-light transition-colors">{% trans "応募・登録" %}</a>
+            <a href="{% url 'group' %}"
+               class="text-sm font-semibold hover:text-primary-light transition-colors">{% trans "グループ" %}</a>
+            <a href="{% url 'hiring-contact' %}"
+               class="text-sm font-semibold hover:text-primary-light transition-colors">{% trans "採用ご担当者様へ" %}</a>
+            {% comment %} <a href="{% url 'inquiry' %}" class="text-sm font-semibold hover:text-primary-light transition-colors">{% trans "お問い合わせ" %}</a> {% endcomment %}
+            <div class="h-4 w-px bg-primary mx-1"></div>
+            <!-- Language Switcher -->
+            <div class="flex items-center gap-1 bg-surface p-1 rounded-lg">
+                <form action="{% url 'set_language' %}" method="post" class="flex gap-1">
+                    {% csrf_token %}
+                    <input name="next"
+                           type="hidden"
+                           value="{{ request.get_full_path|default:'/' }}" />
+                    <button name="language"
+                            value="ja"
+                            type="submit"
+                            class="px-2.5 py-1 text-xs font-bold rounded-md transition-all {% if LANGUAGE_CODE == 'ja' %}bg-primary text-white shadow-sm{% else %}hover:text-primary-light{% endif %}">
+                        JA
+                    </button>
+                    <button name="language"
+                            value="en"
+                            type="submit"
+                            class="px-2.5 py-1 text-xs font-bold rounded-md transition-all {% if LANGUAGE_CODE == 'en' %}bg-primary text-white shadow-sm{% else %}hover:text-primary-light{% endif %}">
+                        EN
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- Mobile hamburger button -->
+        <button id="mobile-menu-button"
+                class="md:hidden w-10 h-10 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+    </div>
+</nav>
+<!-- Mobile full-screen menu overlay -->
+<div id="mobile-menu"
+     class="fixed inset-0 z-200 bg-white flex flex-col invisible opacity-0 scale-95 transition-all duration-300 ease-out overflow-y-auto">
+    <!-- Close button -->
+    <div class="flex justify-end p-6">
+        <button id="close-menu-button"
+                class="w-12 h-12 flex items-center justify-center">
+            <span class="material-symbols-outlined text-4xl">close</span>
+        </button>
+    </div>
+    <!-- Content container -->
+    <div id="mobile-menu-content"
+         class="flex-1 flex flex-col items-center justify-start p-10 w-full translate-y-4 transition-transform duration-500 delay-100">
+        <!-- Logo in menu -->
+        <div class="mb-12 w-full">
+            <a href="{% url 'home' %}"
+               class="text-2xl font-black tracking-widest inline-block">JOB CREATOR</a>
+        </div>
+        <!-- Menu links -->
+        <div class="flex flex-col items-center gap-8 w-full">
+            <a href="{% url 'home' %}"
+               class="w-full text-base font-bold hover:text-primary-light transition-colors">{% trans "ホーム" %}</a>
+            <a href="{% url 'about' %}"
+               class="w-full text-base font-bold hover:text-primary-light transition-colors">{% trans "会社概要" %}</a>
+            <a href="{% url 'services' %}"
+               class="w-full text-base font-bold hover:text-primary-light transition-colors">{% trans "サービス" %}</a>
+            <a href="{% url 'register' %}"
+               class="w-full text-base font-bold hover:text-primary-light transition-colors">{% trans "応募・登録" %}</a>
+            <a href="{% url 'group' %}"
+               class="w-full text-base font-bold hover:text-primary-light transition-colors">{% trans "グループ" %}</a>
+            <a href="{% url 'hiring-contact' %}"
+               class="w-full text-base font-bold hover:text-primary-light transition-colors">{% trans "採用ご担当者様へ" %}</a>
+            {% comment %} <a href="{% url 'inquiry' %}" class="w-full text-base font-bold hover:text-primary-light transition-colors">{% trans "お問い合わせ" %}</a> {% endcomment %}
+            <div class="w-16 h-1 bg-border my-2 rounded-full"></div>
+            <!-- Language Switcher -->
+            <div class="flex items-center gap-1 bg-surface p-1 rounded-lg">
+                <form action="{% url 'set_language' %}" method="post" class="flex gap-1">
+                    {% csrf_token %}
+                    <input name="next"
+                           type="hidden"
+                           value="{{ request.get_full_path|default:'/' }}" />
+                    <button name="language"
+                            value="ja"
+                            type="submit"
+                            class="px-2.5 py-1 text-sm font-bold rounded-md transition-all {% if LANGUAGE_CODE == 'ja' %}bg-primary text-white shadow-sm{% else %}hover:text-primary-light{% endif %}">
+                        JA
+                    </button>
+                    <button name="language"
+                            value="en"
+                            type="submit"
+                            class="px-2.5 py-1 text-sm font-bold rounded-md transition-all {% if LANGUAGE_CODE == 'en' %}bg-primary text-white shadow-sm{% else %}hover:text-primary-light{% endif %}">
+                        EN
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuContent = document.getElementById('mobile-menu-content');
+        const body = document.body;
+
+        function openMenu() {
+            mobileMenu.classList.remove('invisible', 'opacity-0', 'scale-95');
+            mobileMenu.classList.add('visible', 'opacity-100', 'scale-100');
+            menuContent.classList.remove('translate-y-4');
+            menuContent.classList.add('translate-y-0');
+            body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.remove('visible', 'opacity-100', 'scale-100');
+            mobileMenu.classList.add('invisible', 'opacity-0', 'scale-95');
+            menuContent.classList.remove('translate-y-0');
+            menuContent.classList.add('translate-y-4');
+            body.style.overflow = '';
+        }
+
+        mobileMenuButton.addEventListener('click', openMenu);
+        closeMenuButton.addEventListener('click', closeMenu);
+
+        const menuLinks = mobileMenu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Navbar scroll effect
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                nav.classList.add('h-16', 'shadow-sm');
+                nav.classList.remove('h-20');
+            } else {
+                nav.classList.add('h-20');
+                nav.classList.remove('h-16', 'shadow-sm');
+            }
+        });
+    });
+</script>

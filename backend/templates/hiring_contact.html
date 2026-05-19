@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}
+    {% trans "採用ご担当者様へ" %} | JOB CREATOR
+{% endblock title %}
+{% block content %}
+    <!-- Hero -->
+    <section class="pt-24 md:pt-30 pb-6 md:pb-10 overflow-hidden border-b border-border bg-surface">
+        <div class="content__pad-x text-center" data-aos="flip-left">
+            <h1 class="hero-title">{% trans "採用ご担当者様へ" %}</h1>
+        </div>
+    </section>
+    <!-- Main Content -->
+    <section class="container content__pad-x content__pad-y space-y-24 md:space-y-32 overflow-hidden">
+        <!-- Section 1: Philosophy Intro -->
+        <section class="max-w-5xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center space-y-6">
+                <h2 class="text-2xl md:text-4xl font-extrabold tracking-wider text-neutral leading-snug">
+                    {% trans "人材を「紹介して終わり」にしない。" %}
+                </h2>
+                <div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <!-- 3 Column Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-12 md:mt-16">
+                <!-- Card 1 -->
+                <div class="minimal-card bg-surface flex flex-col justify-between"
+                     data-aos="fade-up"
+                     data-aos-delay="200">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-2xl font-bold">handshake</span>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-neutral">{% trans "長期的な定着を見据えた支援" %}</h3>
+                        <p class="text-sm md:text-base text-neutral/80 leading-relaxed font-medium">
+                            {% trans "私たちは、求職者一人ひとりの不安や希望に寄り添いながら、企業様との長期的な定着を見据えた支援を行っています。" %}
+                        </p>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="minimal-card bg-surface flex flex-col justify-between"
+                     data-aos="fade-up"
+                     data-aos-delay="300">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-2xl font-bold">partner_exchange</span>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-neutral">{% trans "入社前後の丁寧な伴走支援" %}</h3>
+                        <p class="text-sm md:text-base text-neutral/80 leading-relaxed font-medium">
+                            {% trans "履歴書・面接対策だけでなく、入社前後の不安解消やコミュニケーション支援まで丁寧に伴走し、双方にとって安心できる採用を目指しています。" %}
+                        </p>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="minimal-card bg-surface flex flex-col justify-between"
+                     data-aos="fade-up"
+                     data-aos-delay="400">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-2xl font-bold">fact_check</span>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-neutral">{% trans "現場理解とミスマッチ防止" %}</h3>
+                        <p class="text-sm md:text-base text-neutral/80 leading-relaxed font-medium">
+                            {% trans "現場理解を大切にしながら、企業様ごとの環境や求める人物像を把握し、ミスマッチを減らす採用支援に取り組んでいます。" %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Section 2: Key Message Highlight -->
+        <section class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+            <div class="relative py-12 px-6 md:px-12 bg-linear-to-br from-primary/5 to-secondary/5 rounded-3xl border border-primary/10 text-center shadow-xs">
+                <!-- Quotation Mark Decoration -->
+                <span class="absolute top-4 left-6 text-7xl text-primary/10 font-serif pointer-events-none select-none">“</span>
+                <span class="absolute bottom-2 right-6 text-7xl text-primary/10 font-serif pointer-events-none select-none">”</span>
+                <h3 class="text-xl md:text-3xl font-extrabold text-primary mb-6 leading-relaxed">
+                    {% trans "「採用すること」ではなく、" %}
+                    <br />
+                    {% trans "「安心して働き続けられること」へ。" %}
+                </h3>
+                <p class="text-sm md:text-base text-neutral font-medium leading-relaxed max-w-xl mx-auto">
+                    {% trans "私たちは、人と企業をつなぐパートナーとして、継続的な支援を行っています。" %}
+                </p>
+            </div>
+        </section>
+        <!-- Section 3: Call to Action (CTA) & Invitation -->
+        <section class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="300">
+            <div class="minimal-card bg-surface/50 border border-primary/20 p-8 md:p-12 text-center rounded-3xl space-y-8 shadow-xs">
+                <div class="space-y-4">
+                    <span class="text-xs font-bold tracking-widest text-secondary uppercase bg-secondary/15 px-3 py-1 rounded-full">
+                        {% trans "CONTACT" %}
+                    </span>
+                    <h3 class="text-xl md:text-2xl font-bold text-neutral">{% trans "まずは現在お考えの内容をお聞かせください。" %}</h3>
+                    <p class="text-xs md:text-sm text-primary font-bold">{% trans "現時点で詳細が決まっていなくても問題ありません" %}</p>
+                </div>
+                <div class="w-12 h-px bg-border mx-auto"></div>
+                <!-- Guidance Points -->
+                <div class="text-left max-w-lg mx-auto space-y-4 text-sm md:text-base text-neutral/80 font-medium">
+                    <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-primary shrink-0">check_circle</span>
+                        <p>{% trans "募集職種・条件・必要スキルなど、未整理の部分がある場合でもお気軽にご入力ください。" %}</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-primary shrink-0">check_circle</span>
+                        <p>{% trans "ヒアリングを通じて、現場状況やご希望に合わせた整理・ご提案も行っております。" %}</p>
+                    </div>
+                </div>
+                <div class="pt-4">
+                    <a href="{% url 'inquiry' %}"
+                       class="shine-btn btn btn-primary btn-wide btn-lg text-sm md:text-base tracking-widest rounded-xl shadow-md flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">edit_note</span>
+                        {% trans "入力フォーム" %}
+                    </a>
+                </div>
+            </div>
+        </section>
+    </section>
+{% endblock content %}

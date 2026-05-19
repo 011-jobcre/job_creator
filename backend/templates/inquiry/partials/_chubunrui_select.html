@@ -1,0 +1,87 @@
+{% load i18n %}
+<div x-data="searchableSelect()" class="relative flex flex-col gap-2">
+    <label class="text-sm tracking-widest ml-1">{% trans "中分類" %}</label>
+    <!-- Hidden Real Select -->
+    <div class="hidden">
+        <div x-ref="realSelect">
+            <select name="chubunrui"
+                    id="id_chubunrui"
+                    class="select outline-none w-full"
+                    required
+                    {% if disabled %}disabled{% endif %}
+                    hx-get="{% url 'shobunrui-options' %}"
+                    hx-target="#shobunrui-wrapper"
+                    hx-swap="innerHTML"
+                    hx-trigger="change"
+                    hx-indicator="#sho-loading"
+                    x-model="chuSelected"
+                    @change="handleChuChange($event)"
+                    :class="fieldErrorClass('chuSelected')">
+                <option value="">---------</option>
+                {% for chu in chubunrui_list %}<option value="{{ chu.code }}">{{ chu.code }} {{ chu.name }}</option>{% endfor %}
+            </select>
+        </div>
+    </div>
+    <!-- Custom Trigger -->
+    <div class="relative"
+         @keydown.arrow-down.prevent="highlightNext()"
+         @keydown.arrow-up.prevent="highlightPrev()"
+         @keydown.enter.prevent="selectHighlighted()">
+        <button type="button"
+                @click="toggle()"
+                @click.away="open = false"
+                @keydown.escape="open = false"
+                :disabled="getSelect()?.disabled"
+                :class="[ fieldErrorClass('chuSelected'), getSelect()?.disabled ? 'opacity-50 cursor-not-allowed bg-base-200' : 'bg-surface cursor-pointer' ]"
+                class="flex items-center justify-between outline-none w-full border border-border text-sm px-3 py-2 rounded-xl text-left transition-all appearance-none">
+            <span x-text="selectedText" class="truncate mr-2"></span>
+            <span class="material-symbols-outlined transition-transform"
+                  :class="open ? 'rotate-180' : ''">expand_more</span>
+        </button>
+        <!-- Dropdown Panel -->
+        <div x-show="open"
+             x-transition:enter="transition ease-out duration-100"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             class="absolute z-50 mt-2 w-full bg-surface border border-border rounded-xl shadow-2xl overflow-hidden"
+             x-cloak>
+            <div class="p-2 border-b border-border">
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2">search</span>
+                    <input x-ref="searchInput"
+                           x-model="search"
+                           @input="filterOptions()"
+                           type="text"
+                           class="w-full bg-surface border border-border rounded-lg pl-9 pr-3 py-2 text-sm outline-none focus:border-base-content"
+                           placeholder="{% trans "検索..." %}" />
+                </div>
+            </div>
+            <div x-ref="optionsList" class="max-h-60 overflow-y-auto">
+                <template x-for="(opt, index) in filteredOptions" :key="opt.value">
+                    <div @click="selectOption(opt)"
+                         @mouseenter="highlightedIndex = index"
+                         class="px-4 py-2.5 text-sm cursor-pointer transition-colors flex items-center justify-between"
+                         :class="{ 'bg-primary/10 ': opt.value === getSelect()?.value, 'bg-primary/10': highlightedIndex === index && opt.value !== getSelect()?.value }">
+                        <span x-text="opt.text"></span>
+                        <span x-show="opt.value === getSelect()?.value"
+                              class="material-symbols-outlined">check</span>
+                    </div>
+                </template>
+                <div x-show="filteredOptions.length === 0"
+                     class="px-4 py-8 text-center text-sm">
+                    <span class="material-symbols-outlined block mb-2 opacity-20">search_off</span>
+                    {% trans "一致する結果がありません" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p class="text-sm text-error ml-1 mt-2"
+   x-show="errors.chuSelected"
+   x-text="errors.chuSelected"
+   x-cloak></p>
+<!-- Loading indicator -->
+<div id="chu-loading" class="htmx-indicator absolute right-3 top-9">
+    <span class="loading loading-spinner loading-xs"></span>
+    <span class="text-sm">{% trans "読み込み中..." %}</span>
+</div>

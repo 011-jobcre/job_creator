@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}
+    {% trans "ホーム" %} | JOB CREATOR
+{% endblock title %}
+{% block content %}
+    <!-- Hero -->
+    <section class="container max-w-none min-h-screen flex items-center justify-center overflow-hidden bg-surface">
+        <!-- Grid -->
+        <div class="grid md:grid-cols-5 gap-16 md:gap-24 items-center">
+            <!-- Left Content -->
+            <div class="md:col-span-2">
+                <!-- Text 1 -->
+                <h1 class="hero-text-1 text-lg md:text-2xl font-bold tracking-widest mb-12">{% trans "就職も　生活も　これからも" %}</h1>
+                <!-- Text 2 -->
+                <p class="hero-text-2 text-lg leading-relaxed max-w-xl">{% trans "仕事探しに　安心という選択を」" %}</p>
+                <!-- Text 3 -->
+                <p class="hero-text-3 font-bold tracking-wider mt-12 md:mt-70">
+                    {% trans "総合人材支援企業" %}　<span class="text-lg">JOB CREATOR</span>
+                </p>
+            </div>
+            <!-- Right Content -->
+            <div class="relative md:col-span-3 aspect-4/3">
+                <!-- Images 1 -->
+                <div class="hero-image-1">
+                    <div class="h-full">
+                        <img src="{% static 'images/job_creator_homepage_1.webp' %}"
+                             alt=""
+                             width="100%"
+                             height="100%"
+                             class="w-full h-full object-fill rounded-xl shadow-xl" />
+                    </div>
+                </div>
+                <!-- Images 2 -->
+                <div class="hero-image-2">
+                    <div class="h-full">
+                        <img src="{% static 'images/job_creator_homepage_2.webp' %}"
+                             alt=""
+                             width="100%"
+                             height="100%"
+                             class="w-full h-full object-fill rounded-xl shadow-xl" />
+                    </div>
+                </div>
+                <!-- Images 3 -->
+                <div class="hero-image-3">
+                    <div class="h-full">
+                        <img src="{% static 'images/job_creator_homepage_3.webp' %}"
+                             alt=""
+                             width="100%"
+                             height="100%"
+                             class="w-full h-full object-fill rounded-xl shadow-xl" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

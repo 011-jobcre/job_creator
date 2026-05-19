@@ -1,0 +1,320 @@
+/* ============================================================
+   JOB CREATOR Corporate Design System — input.css
+   Stack: Tailwind CSS v4
+   Theme: "Minimalist Blue Precision"
+   ============================================================ */
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+    name: "light";
+    default: true;
+    prefersdark: false;
+    color-scheme: "light";
+    --color-base-100: oklch(100% 0 0);
+    --color-base-200: oklch(98% 0 0);
+    --color-base-300: oklch(95% 0 0);
+    --color-base-content: oklch(21% 0.006 285.885);
+    --color-primary: #004e92;
+    --color-primary-content: #ffffff;
+    --color-secondary: #0ea5e9;
+    --color-secondary-content: #ffffff;
+    --color-accent: oklch(77% 0.152 181.912);
+    --color-accent-content: oklch(38% 0.063 188.416);
+    --color-neutral: oklch(14% 0.005 285.823);
+    --color-neutral-content: oklch(92% 0.004 286.32);
+    --color-info: oklch(74% 0.16 232.661);
+    --color-info-content: oklch(29% 0.066 243.157);
+    --color-success: oklch(76% 0.177 163.223);
+    --color-success-content: oklch(37% 0.077 168.94);
+    --color-warning: oklch(82% 0.189 84.429);
+    --color-warning-content: oklch(41% 0.112 45.904);
+    --color-error: oklch(71% 0.194 13.428);
+    --color-error-content: oklch(27% 0.105 12.094);
+    --radius-selector: 0.5rem;
+    --radius-field: 0.5rem;
+    --radius-box: 1rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+}
+
+/* ------------------------------------------------------------
+   1. TAILWIND THEME EXTENSIONS — custom tokens
+   ------------------------------------------------------------ */
+@theme {
+    /* Fonts */
+    --font-sans: "Noto Serif JP", serif;
+
+    /* Primary Blue Palette — Brightened Corporate Blue */
+    /* --color-primary: #004e92; */
+    --color-primary-light: #0066cc;
+    --color-primary-dark: #003366;
+
+    /* --color-secondary: #0ea5e9; */
+    --color-secondary-light: #38bdf8;
+    --color-secondary-dark: #0284c7;
+
+    /* --color-accent: #00d2ff; */
+
+    /* Functional Colors */
+    --color-muted: #64748b;
+    --color-surface: #f8fafc;
+    --color-border: #e2e8f0;
+}
+
+/* ------------------------------------------------------------
+   2. BASE STYLES
+   ------------------------------------------------------------ */
+@layer base {
+    html,
+    body {
+        @apply antialiased scroll-smooth bg-white text-black;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Material Symbols default weight */
+    .material-symbols-outlined {
+        font-variation-settings:
+            "FILL" 0,
+            "wght" 400,
+            "GRAD" 0,
+            "opsz" 24;
+        @apply inline-block align-middle leading-none;
+    }
+}
+
+/* ------------------------------------------------------------
+   3. REUSABLE COMPONENTS (High Frequency)
+   ------------------------------------------------------------ */
+@layer components {
+    /* Layout */
+    .content__pad-x {
+        @apply px-6 md:px-10 mx-auto;
+    }
+    .content__pad-y {
+        @apply py-10 md:py-14;
+    }
+
+    .hero-title {
+        @apply text-2xl md:text-4xl font-bold tracking-wider uppercase;
+    }
+
+    .section-title {
+        @apply text-xl md:text-2xl font-bold tracking-wider uppercase;
+    }
+
+    /* HTMX Indicator */
+    .htmx-indicator {
+        display: none;
+    }
+    .htmx-request.htmx-indicator {
+        display: inline-flex;
+    }
+
+    .field-error {
+        --input-color: var(--color-error) !important;
+        border-color: var(--color-error) !important;
+        outline-color: var(--color-error) !important;
+    }
+
+    /* Services Page */
+    .service-icon-number {
+        @apply w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border-2 border-primary 
+                flex items-center justify-center font-bold text-primary z-10 transition-all duration-300 
+                group-hover:bg-primary group-hover:text-white group-hover:scale-105 shadow-sm;
+    }
+
+    .service-line {
+        @apply w-0.5 flex-1 bg-linear-to-b from-primary to-primary-dark group-last:hidden my-2;
+    }
+
+    .service-card {
+        @apply bg-surface border border-border rounded-2xl p-1 transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5;
+    }
+
+    /* Cards & Effects */
+    .minimal-card {
+        @apply border border-border rounded-2xl p-6 transition-all duration-300 shadow-sm hover:shadow-xl;
+    }
+
+    .shine-btn {
+        @apply relative overflow-hidden transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0;
+        &::after {
+            content: "";
+            @apply absolute inset-0 -translate-x-full transition-transform duration-500 ease-in-out;
+            background: linear-gradient(
+                105deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.2) 50%,
+                transparent 60%
+            );
+        }
+        &:hover::after {
+            @apply translate-x-full;
+        }
+    }
+
+    .timeline-line::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 100%;
+        background-color: var(--color-primary-dark);
+    }
+    @media (max-width: 1024px) {
+        .timeline-line::before {
+            left: 20px;
+        }
+    }
+
+    /* Form Elements */
+    .form-input {
+        @apply text-black w-full px-3 py-2 bg-surface border border-border rounded-xl outline-none 
+                transition-all duration-200 focus:border-secondary focus:ring-2 focus:ring-secondary/10;
+    }
+}
+
+/* ------------------------------------------------------------
+   4. ANIMATIONS (Preserved)
+   ------------------------------------------------------------ */
+@layer utilities {
+    .animate-float {
+        animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    /* Marquee */
+    .animate-marquee {
+        animation: marquee 20s linear infinite;
+    }
+    .animate-marquee:hover {
+        animation-play-state: paused;
+    }
+    @keyframes marquee {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    @keyframes marquee-scroll {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+    .marquee-track1 {
+        display: flex;
+        width: max-content;
+        animation: marquee-scroll 18s linear infinite;
+    }
+    .marquee-track:hover {
+        animation-play-state: paused;
+    }
+
+    /* Carousel Fade */
+    .hero-image-1 {
+        @apply absolute inset-0 opacity-0;
+        animation: fade-cycle 9s ease-in-out infinite;
+        animation-delay: 0s;
+    }
+    .hero-image-2 {
+        @apply absolute inset-0 opacity-0;
+        animation: fade-cycle 9s ease-in-out infinite;
+        animation-delay: 3s;
+    }
+    .hero-image-3 {
+        @apply absolute inset-0 opacity-0;
+        animation: fade-cycle 9s ease-in-out infinite;
+        animation-delay: 6s;
+    }
+
+    @keyframes fade-cycle {
+        0% {
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        25% {
+            opacity: 1;
+        }
+        33.333%,
+        100% {
+            opacity: 0;
+        }
+    }
+
+    /* Text animations synced with carousel */
+    .hero-text-1 {
+        opacity: 0;
+        animation: text-fade-in 1.2s forwards;
+        animation-delay: 0.2s;
+    }
+    .hero-text-2 {
+        opacity: 0;
+        animation: text-fade-in 1.2s forwards;
+        animation-delay: 3.2s;
+    }
+    .hero-text-3 {
+        opacity: 0;
+        animation: text-fade-in 1.2s forwards;
+        animation-delay: 6.2s;
+    }
+    @keyframes text-fade-in {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Progress bar */
+    .progress-bar {
+        animation: progress-slide 2.8s ease-in-out infinite;
+    }
+    @keyframes progress-slide {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(400%);
+        }
+    }
+
+    /* Bounce */
+    .animate-bounce-slow {
+        animation: etac-bounce 2s infinite;
+    }
+    @keyframes etac-bounce {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(6px);
+        }
+    }
+}
